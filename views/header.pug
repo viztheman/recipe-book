@@ -1,0 +1,5 @@
+mixin header
+	header.d-flex.justify-content-end.mb-2(data-bind="class: headerClass" style="min-height: 30px;")
+		button.btn.btn-danger.btn-sm.me-2(data-bind="class: deleteClass" data-bs-toggle="modal" data-bs-target="#deleteModal") Delete
+		button.btn.btn-secondary.btn-sm.me-2(data-bind="click: showEdit, class: editClass") Edit
+		button.btn.btn-success.btn-sm(data-bind="click: showAdd") Add

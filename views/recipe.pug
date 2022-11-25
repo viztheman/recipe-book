@@ -1,0 +1,23 @@
+mixin recipe
+	main.flex-grow-1.flex-column.ps-4(data-bind="class: recipeClass")
+		<!-- ko if: recipe -->
+			<!-- ko with: recipe -->
+				h2.mb-4(data-bind="text: title")
+				.flex-grow-1.d-flex.flex-row
+					.flex-grow-1.d-flex.flex-column.pe-2
+						h5 Ingredients
+						.scrollable
+							div(data-bind="html: ingredients.replace(/\\n/g, '<br>')")
+					.w-50.d-flex.flex-column.pe-2
+						h5 Steps
+						.scrollable
+							div(data-bind="html: steps.replace(/\\n/g, '<br>')")
+					.flex-grow-1.d-flex.flex-column(data-bind="if: notes")
+						h5 Notes
+						.scrollable
+							div(data-bind="html: notes.replace(/\\n/g, '<br>')")
+			<!-- /ko -->
+		<!-- /ko -->
+		<!-- ko ifnot: recipe -->
+			h2 No recipes here. Try adding one!
+		<!-- /ko -->

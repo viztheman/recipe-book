@@ -1,0 +1,14 @@
+extends layout
+include header
+include recipes
+include recipe
+include addedit
+include deleteModal
+
+block content
+	+header
+	.flex-grow-1.d-flex
+		+recipes
+		+recipe
+		+addedit
+	+deleteModal

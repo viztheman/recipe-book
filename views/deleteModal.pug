@@ -1,0 +1,15 @@
+mixin deleteModal
+	#deleteModal.modal.fade(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.btn-close(type="button" data-bs-dismiss="modal")
+						span &times;
+				.modal-body
+					h4
+						| Delete 
+						span Recipe 1
+						| ?
+				.modal-footer
+					button.btn.btn-danger(type="button" data-bind="click: deleteRecipe") Yes
+					button.btn.btn-secondary(type="button" data-bs-dismiss="modal") No

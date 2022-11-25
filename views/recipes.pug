@@ -1,0 +1,7 @@
+mixin recipes
+	aside.scrollable.w-20
+		.scrollable-body
+			.list-group(data-bind="foreach: recipes")
+				a(href="#" data-bind="css: {'active': $data === viewModel.selected()}, click: $root.changeRecipe").list-group-item.list-group-item-action
+					input(type="hidden" data-bind="value: id")
+					h5(data-bind="text: title")

@@ -1,0 +1,21 @@
+.d-flex {
+	overflow: hidden;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+}
+
+.w-20 {
+	min-width: 20%;
+}
+
+.d-50 {
+	max-width: 50%;
+}
+
+.scrollable {
+	overflow-y: auto;
+}
