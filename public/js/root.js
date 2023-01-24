@@ -1,5 +1,7 @@
 let deleteModal;
 
+viewModel.recipes.forEach(x => x.visible = ko.observable(true));
+
 viewModel.selected = ko.observable(viewModel.recipes.length > 0 ? viewModel.recipes[0] : null);
 viewModel.recipes = ko.observableArray(viewModel.recipes);
 viewModel.recipe = ko.observable(viewModel.recipe);
@@ -10,6 +12,7 @@ viewModel.title = ko.observable(null);
 viewModel.ingredients = ko.observable(null);
 viewModel.steps = ko.observable(null);
 viewModel.notes = ko.observable(null);
+viewModel.search = ko.observable(null);
 
 viewModel.showAdd = ko.pureComputed(function() {
 	return viewModel.showAddEdit() && viewModel.editId() !== null;
@@ -133,6 +136,12 @@ viewModel.deleteRecipe = async function() {
 
 	deleteModal.hide();	
 };
+
+viewModel.search.subscribe(function(search) {
+	const copy = [...viewModel.recipes()];
+	copy.forEach(x => x.visible(new RegExp(search, 'i').test(x.title)));
+	viewModel.recipes(copy);
+});
 
 ko.applyBindings(viewModel);
 
