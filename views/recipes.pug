@@ -5,10 +5,8 @@ mixin recipes
 				.input-group-prepend
 					.input-group-text &#x1F50D;
 				input.form-control(id="search" type="text" placeholder="Search" data-bind="value: search, valueUpdate: 'afterkeydown'")
-		div.flex-grow-1
-			.scrollable
-				.scrollable-body
-					.list-group(data-bind="foreach: recipes")
-						a(href="#" data-bind="css: {'active': $data === viewModel.selected(), 'd-none': !visible()}, click: $root.changeRecipe").list-group-item.list-group-item-action
-							input(type="hidden" data-bind="value: id")
-							h5(data-bind="text: title")
+		div.flex-grow-1.scrollable
+			.list-group(data-bind="foreach: recipes")
+				a(href="#" data-bind="css: {'active': $data === viewModel.selected(), 'd-none': !visible()}, click: $root.changeRecipe").list-group-item.list-group-item-action
+					input(type="hidden" data-bind="value: id")
+					h5(data-bind="text: title")
