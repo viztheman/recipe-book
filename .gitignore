@@ -108,3 +108,4 @@ dist
 
 # SQLite DB
 *.db
+*.sqlite

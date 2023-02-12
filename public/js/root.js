@@ -50,7 +50,9 @@ viewModel.changeRecipe = async function() {
 	const target = viewModel.recipes().find(x => x.id === this.id);
 	if (!target) return;
 
-	const data = await fetch(`/api/recipes/${target.id}`);
+	const data = await fetch(`/api/recipes/${target.id}`, {
+		headers: {'Authorization': 'Bearer ' + viewModel.apiKey}
+	});
 	if (!data) return;
 
 	const recipe = await data.json();
@@ -75,7 +77,10 @@ viewModel.addEditRecipe = async function() {
 		isEdit ? `/api/recipes/${id}` : '/api/recipes',
 		{
 			method: isEdit ? 'PATCH' : 'POST',
-			headers: {'Content-Type': 'application/json'},
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer ' + viewModel.apiKey
+			},
 			body: JSON.stringify(data)
 		}
 	);
