@@ -90,8 +90,10 @@ viewModel.addEditRecipe = async function() {
 
 	if (isEdit)
 		viewModel.recipes.replace(viewModel.selected(), replacement);
-	else 
+	else {
+		replacement.visible = ko.observable(true);
 		viewModel.recipes.push(replacement);
+	}
 
 	viewModel.showAddEdit(false);
 	await viewModel.changeRecipe.call(replacement);
@@ -124,7 +126,12 @@ viewModel.cancelAddEdit = function() {
 
 viewModel.deleteRecipe = async function() {
 	let target = viewModel.selected();
-	await fetch(`api/recipes/${target.id}`, {method: 'DELETE'});
+	await fetch(`api/recipes/${target.id}`, {
+		method: 'DELETE',
+		headers: {
+			'Authorization': 'Bearer ' + viewModel.apiKey
+		}
+	});
 
 	const index = viewModel.recipes.indexOf(target);
 	viewModel.recipes.remove(target);
