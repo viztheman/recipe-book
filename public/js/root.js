@@ -87,13 +87,12 @@ viewModel.addEditRecipe = async function() {
 
 	const recipe = await result.json();
 	const replacement = {id: recipe.id, title: recipe.title};
+	replacement.visible = ko.observable(true);
 
 	if (isEdit)
 		viewModel.recipes.replace(viewModel.selected(), replacement);
-	else {
-		replacement.visible = ko.observable(true);
+	else
 		viewModel.recipes.push(replacement);
-	}
 
 	viewModel.showAddEdit(false);
 	await viewModel.changeRecipe.call(replacement);
