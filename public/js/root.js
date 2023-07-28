@@ -1,7 +1,5 @@
 let deleteModal;
 
-viewModel.recipes.forEach(x => x.visible = ko.observable(true));
-
 viewModel.selected = ko.observable(viewModel.recipes.length > 0 ? viewModel.recipes[0] : null);
 viewModel.recipes = ko.observableArray(viewModel.recipes);
 viewModel.recipe = ko.observable(viewModel.recipe);
@@ -87,7 +85,6 @@ viewModel.addEditRecipe = async function() {
 
 	const recipe = await result.json();
 	const replacement = {id: recipe.id, title: recipe.title};
-	replacement.visible = ko.observable(true);
 
 	if (isEdit)
 		viewModel.recipes.replace(viewModel.selected(), replacement);
@@ -148,10 +145,24 @@ viewModel.deleteRecipe = async function() {
 	deleteModal.hide();	
 };
 
+var debounce;
+
 viewModel.search.subscribe(function(search) {
-	const copy = [...viewModel.recipes()];
-	copy.forEach(x => x.visible(new RegExp(search, 'i').test(x.title)));
-	viewModel.recipes(copy);
+	clearTimeout(debounce);
+	debounce = setTimeout(async function() {
+		const result = await fetch(
+			`/api/recipes?search=${search}`,
+			{
+				method: 'GET',
+				headers: {
+					'Authorization': 'Bearer ' + viewModel.apiKey
+				}
+			}
+		);
+
+		const recipes = (await result.json()).recipes;
+		viewModel.recipes(recipes);
+	}, 500);
 });
 
 ko.applyBindings(viewModel);
